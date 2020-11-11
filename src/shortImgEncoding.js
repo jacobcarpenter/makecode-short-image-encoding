@@ -29,7 +29,7 @@ export function toShort(source) {
 		.filter((x) => x);
 
 	const imgWidth = lines[0]?.length;
-	if (!imgWidth) {
+	if (!imgWidth || !lines.every((line) => line.length === imgWidth)) {
 		return;
 	}
 
@@ -80,9 +80,13 @@ export function fromShort(source) {
 		return acc;
 	}, []);
 
-	if (decodedUnpacked.length % imgWidth !== 0) {
+	if (decodedUnpacked.length % imgWidth === 1) {
 		// trim extra half byte value off end
 		decodedUnpacked.splice(-1, 1);
+	}
+
+	if (decodedUnpacked.length % imgWidth !== 0) {
+		return;
 	}
 
 	const imgData = decodedUnpacked
