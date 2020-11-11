@@ -2,7 +2,7 @@
   "name": "vanilla",
   "version": "1.0.0",
   "description": "JavaScript example starter project",
-  "main": "index.html",
+  "main": "dist/index.html",
   "scripts": {
     "start": "parcel index.html --open",
     "build": "parcel build index.html"
@@ -12,11 +12,13 @@
     "micro-base58": "0.4.3"
   },
   "devDependencies": {
-    "@babel/core": "7.2.0",
-    "parcel-bundler": "^1.6.1"
+    "parcel": "^2.0.0-beta.1"
   },
   "keywords": [
     "javascript",
     "starter"
-  ]
+  ],
+  "repository": "https://github.com/jacobcarpenter/makecode-short-image-encoding.git",
+  "author": "Jacob Carpenter <github@jacobcarpenter.com>",
+  "license": "MIT"
 }
