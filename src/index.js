@@ -1,19 +1,29 @@
-import './styles.css';
 import { html, render } from 'lit-html';
 import { toShort, fromShort } from './shortImgEncoding';
+import './styles.css';
 
 const app = document.querySelector('#app');
 
 const url = new URL(window.location);
 const s = url.searchParams.get('s');
-const img = fromShort(s) ?? getDefaultImageData();
-updateURL(img);
+const imgData = fromShort(s) ?? getDefaultImageData();
 
-render(
-	html`<div>
+update(imgData);
+
+function update(imgData) {
+	const s = toShort(imgData);
+	const searchParams = s && new URLSearchParams({ s });
+	const shortUrl = searchParams ? `/?${searchParams}` : `/`;
+
+	window.history.replaceState(null, '', shortUrl);
+	render(App({ img: imgData, shortUrl: s }), app);
+}
+
+function App({ img, shortUrl }) {
+	return html`<div>
 		<p>
 			Paste image data into the <code>TEXTAREA</code> below to create a
-			sharable url.
+			<a href=${shortUrl}>sharable url</a>.
 		</p>
 		<p>
 			Copy image data from the <code>TEXTAREA</code> below to paste into
@@ -24,22 +34,10 @@ render(
 				cols="60"
 				rows="20"
 				.value=${img}
-				@input=${(e) => updateURL(e.target.value)}
+				@input=${(e) => update(e.target.value)}
 			></textarea>
 		</div>
-	</div>`,
-	app
-);
-
-function updateURL(data) {
-	const s = toShort(data);
-	const searchParams = s && new URLSearchParams({ s });
-
-	window.history.replaceState(
-		null,
-		'',
-		searchParams ? `/?${searchParams}` : `/`
-	);
+	</div>`;
 }
 
 function getDefaultImageData() {

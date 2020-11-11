@@ -1,3 +1,13 @@
 body {
-  font-family: sans-serif;
+	font-family: sans-serif;
+}
+
+code,
+textarea {
+	font-family: Menlo, Monaco, Consolas;
+}
+
+code {
+	background: #eee;
+	padding: 0 4px;
 }
