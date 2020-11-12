@@ -93,15 +93,21 @@ ab33ddd325543333dd33aa444b44e...
 function normalizeImage(img) {
 	const data = img.match(/img`([^`]+)`/m);
 	const lines = data[1].split('\n');
-	const normalizedLines = lines
+	const trimmedFilteredLines = lines
 		.map((line) => line.replace(/\s+/g, ''))
-		.filter((line) => line)
-		.map((line) =>
-			line
-				.split('')
-				.map((ch) => hexChars[getValue(ch)])
-				.join(' ')
-		);
+		.filter((line) => line);
+
+	const paddingBetweenPixels =
+		trimmedFilteredLines.reduce((acc, line) => acc + line.length, 0) > 300
+			? ''
+			: ' ';
+
+	const normalizedLines = trimmedFilteredLines.map((line) =>
+		line
+			.split('')
+			.map((ch) => hexChars[getValue(ch)])
+			.join(paddingBetweenPixels)
+	);
 	return `img\`
 ${normalizedLines.join('\n')}
 \``;

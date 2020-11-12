@@ -89,6 +89,9 @@ export function fromShort(source) {
 		return;
 	}
 
+	// from https://github.com/microsoft/pxt/blob/e325bad9babaa43f7b6f7eacd930db5b9b6ffed1/pxtlib/spriteutils.ts#L687
+	const paddingBetweenPixels = decodedUnpacked.length > 300 ? '' : ' ';
+
 	const imgData = decodedUnpacked
 		.map((x) => hexChars[x])
 		.reduce((acc, curr) => {
@@ -99,7 +102,7 @@ export function fromShort(source) {
 			}
 			return acc;
 		}, [])
-		.map((x) => x.join(' '))
+		.map((x) => x.join(paddingBetweenPixels))
 		.join('\n');
 
 	return `img\`\n${imgData}\n\``;
