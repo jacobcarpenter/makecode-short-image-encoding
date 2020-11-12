@@ -16,27 +16,35 @@ function update(imgData) {
 	const shortUrl = searchParams ? `/?${searchParams}` : `/`;
 
 	window.history.replaceState(null, '', shortUrl);
-	render(App({ img: imgData, shortUrl: s }), app);
+	render(App({ img: imgData, shortUrl, s }), app);
 }
 
-function App({ img, shortUrl }) {
+function App({ img, s, shortUrl }) {
 	return html`<div>
 		<p>
 			Paste image data into the <code>TEXTAREA</code> below to create a
 			<a href=${shortUrl}>sharable url</a>.
 		</p>
 		<p>
-			Copy image data from the <code>TEXTAREA</code> below to paste into
+			Copy from the <code>TEXTAREA</code> below to paste the image into
 			MakeCode Arcade.
 		</p>
 		<div>
 			<textarea
+				class=${!s ? 'error' : ''}
 				cols="60"
 				rows="20"
 				.value=${img}
 				@input=${(e) => update(e.target.value)}
 			></textarea>
 		</div>
+		${s && html`<p class="short-image">${s}</p>`}
+		<p>
+			<a
+				href="https://github.com/jacobcarpenter/makecode-short-image-encoding"
+				>View on Github</a
+			>
+		</p>
 	</div>`;
 }
 

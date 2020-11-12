@@ -1,4 +1,6 @@
 body {
+	margin: 24px;
+	max-width: 800px;
 	font-family: sans-serif;
 }
 
@@ -10,4 +12,14 @@ textarea {
 code {
 	background: #eee;
 	padding: 0 4px;
+}
+
+.short-image {
+	overflow-wrap: break-word;
+	font-size: 11pt;
+}
+
+.error {
+	border-color: #d00;
+	outline-color: #d00;
 }
