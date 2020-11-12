@@ -1,0 +1,4 @@
+// required for Jest, but not Parcel
+{
+	"presets": [["@babel/preset-env", { "targets": { "node": "current" } }]]
+}
