@@ -1,4 +1,5 @@
 import { html, render } from 'lit-html';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import { toShort, fromShort } from './shortImgEncoding';
 import './styles.css';
 
@@ -31,9 +32,10 @@ function App({ img, s, shortUrl }) {
 		</p>
 		<div>
 			<textarea
-				class=${!s ? 'error' : ''}
+				class=${ifDefined(!s ? 'error' : undefined)}
 				cols="60"
 				rows="20"
+				spellcheck="false"
 				.value=${img}
 				@input=${(e) => update(e.target.value)}
 			></textarea>
