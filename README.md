@@ -1,4 +1,4 @@
-# MakeCode Arcade Short Image Encoding
+# MakeCode Arcade “Short” Image Encoding
 
 A more convenient format for sharing MakeCode Arcade serialized images (`` img`...` ``).
 
