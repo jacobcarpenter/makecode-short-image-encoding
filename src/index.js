@@ -1,6 +1,6 @@
 import { html, render } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { toShort, fromShort } from './shortImgEncoding';
+import { toShort, fromShort } from './encoding';
 import './styles.css';
 
 const app = document.querySelector('#app');

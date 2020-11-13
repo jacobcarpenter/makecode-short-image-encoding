@@ -1,5 +1,5 @@
-import { toShort, fromShort } from '../src/shortImgEncoding';
-import { getValue, hexChars } from '../src/pxt-functions';
+import { toShort, fromShort } from '../src/encoding';
+import { getValue, hexChars } from '../src/encoding/pxt-functions';
 import { testData } from './testData';
 
 describe('image round trips', () => {
