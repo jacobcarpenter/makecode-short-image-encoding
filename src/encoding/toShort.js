@@ -2,6 +2,20 @@ import { encode as encodeBase58 } from 'micro-base58';
 import { getValue } from './pxt-functions';
 
 export function toShort(source, version = 2) {
+	if (!source) {
+		return;
+	}
+
+	let encoder;
+	if (version === 2) {
+		encoder = toShortV2;
+	} else if (version === 1) {
+		encoder = toShortV1;
+	} else {
+		// unknown version
+		return;
+	}
+
 	// modified from https://github.com/microsoft/pxt/blob/ed6180765c67f822b312eb3ea27f6e4b8faf4a3b/webapp/src/components/ImageEditor/ImageCanvas.tsx#L378-L379
 	const matched = source.match(
 		/img(`|\(""")([\s\da-f.#tngrpoyw]+)(`|"""\))/im
@@ -22,16 +36,7 @@ export function toShort(source, version = 2) {
 	}
 
 	const pixelData = lines.flatMap((x) => x.split('')).map(getValue);
-
-	let encodedData;
-	if (version === 2) {
-		encodedData = toShortV2(pixelData);
-	} else if (version === 1) {
-		encodedData = toShortV1(pixelData);
-	} else {
-		// unknown version
-		return;
-	}
+	const encodedData = encoder(pixelData);
 
 	return encodeBase58(
 		Uint8Array.from([

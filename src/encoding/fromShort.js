@@ -2,6 +2,10 @@ import { decode as decodeBase58 } from 'micro-base58';
 import { hexChars } from './pxt-functions';
 
 export function fromShort(source) {
+	if (!source) {
+		return;
+	}
+
 	let decoded;
 	try {
 		decoded = [...decodeBase58(source)];
