@@ -41,6 +41,10 @@ function App({ img, s, shortUrl }) {
 			></textarea>
 		</div>
 		${s && html`<p class="short-image">${s}</p>`}
+		${s &&
+		html`<p class="short-image">
+			Original: ${img.length}; Shortened: ${s.length}
+		</p>`}
 		<p>
 			<a
 				href="https://github.com/jacobcarpenter/makecode-short-image-encoding"

@@ -17,6 +17,7 @@ code {
 .short-image {
 	overflow-wrap: break-word;
 	font-size: 11pt;
+	color: #666;
 }
 
 .error {
