@@ -22,7 +22,7 @@ The last two benefits would be especially useful if MakeCode Arcade someday adds
 
 | byte # | bit offset | data                                  |
 | ------ | ---------- | ------------------------------------- |
-| 1      | 4–7        | version identifier (`0001` or `0010`) |
+| 1      | 4–7        | version identifier (`0010` or `0001`) |
 | 1      | 0–3        | high 4 bits of a 12-bit image width   |
 | 2      | 0–7        | low 8 bits of a 12-bit image width    |
 
@@ -32,13 +32,15 @@ Image widths are represented as a 12-bit value. Widths may range from 1–4,095 
 
 #### v2 (default)
 
-Data is grouped into series of `repeated pixels` and `non repeated pixels`. Each grouping is prefixed with a `length` designator that indicates the **type** and **length** of the next grouping.
+Data is grouped into series of `repeated pixels` and `non repeated pixels`. Each grouping is indicated with a `length` designator that specifies the **type** and **length** of the next grouping.
 
-**Repeated** pixel data contains the pixel value in the group prefix.
+**Repeated** pixel data contains the repeated pixel value with the length designator.
 
-**Non-repeated** pixel data follows the prefix and is packed as described in the [v1 encoding](#v1).
+The repeat threshold can be left up to the implementation (an implementation could even implement a dynamic repeat threshold). A minimum size of 3 repeated values seems to strike a good balance between optimizing short repeated runs and flipping back and forth between non-grouped and grouped instructions too often.
 
-##### Length prefix format
+**Non-repeated** pixel data follows the instruction and is packed as described in the [v1 encoding](#v1).
+
+##### Type + length instruction format
 
 | high 4-bits              | low 4-bits               | type         |
 | ------------------------ | ------------------------ | ------------ |
